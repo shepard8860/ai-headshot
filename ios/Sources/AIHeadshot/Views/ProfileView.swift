@@ -96,11 +96,11 @@ struct OrderDetailView: View {
                 if let urlString = order.imageURL, let url = URL(string: urlString) {
                     AsyncImage(url: url) { phase in
                         switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit
-                                .cornerRadius(12)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(12)
                         default:
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.gray.opacity(0.2))

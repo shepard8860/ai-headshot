@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import UIKit
 
 extension View {
     func hideKeyboard() {
@@ -18,11 +19,5 @@ extension Data {
 extension URLRequest {
     mutating func setJSONContentType() {
         setValue("application/json", forHTTPHeaderField: "Content-Type")
-    }
-}
-
-extension URLSession {
-    func bytes(for request: URLRequest) async throws -> (URLSession.AsyncBytes, URLResponse) {
-        return try await self.bytes(for: request, delegate: nil)
     }
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ProgressView: View {
+struct GenerationProgressView: View {
     let orderID: String
     @ObservedObject var viewModel: GenerateViewModel
     @State private var showResult = false

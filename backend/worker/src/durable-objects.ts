@@ -2,20 +2,27 @@
  * Durable Object: OrderStatusStream
  * 用于 SSE 流推送订单状态变化
  */
-import type { OrderStatus, OrderStatusEvent } from "./types";
+import type { OrderStatusEvent } from "./types";
 
 export class OrderStatusStream implements DurableObject {
   private state: DurableObjectState;
-  private sessions: Map<WebSocket, { orderId: string }> = new Map();
   private latestEvent: Map<string, OrderStatusEvent> = new Map();
 
   constructor(state: DurableObjectState) {
     this.state = state;
   }
 
-  // 处理 SSE 订阅请求
+  // 处理 SSE 订阅请求和内部 RPC
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
+
+    // 内部 RPC：推送事件
+    if (url.pathname === "/push" && request.method === "POST") {
+      const payload = (await request.json()) as { orderId: string; event: OrderStatusEvent };
+      await this.pushEvent(payload.orderId, payload.event);
+      return new Response("OK");
+    }
+
     const orderId = url.searchParams.get("orderId");
 
     if (!orderId) {
@@ -27,7 +34,7 @@ export class OrderStatusStream implements DurableObject {
     const encoder = new TextEncoder();
 
     // 发送 SSE 头部
-    writer.write(
+    await writer.write(
       encoder.encode(
         "data: " +
           JSON.stringify({ connected: true, orderId }) +
@@ -38,7 +45,7 @@ export class OrderStatusStream implements DurableObject {
     // 如果有缓存的事件，立即发送
     const cached = this.latestEvent.get(orderId);
     if (cached) {
-      writer.write(encoder.encode("data: " + JSON.stringify(cached) + "\n\n"));
+      await writer.write(encoder.encode("data: " + JSON.stringify(cached) + "\n\n"));
     }
 
     // 保存 writer 用于后续推送
@@ -46,7 +53,7 @@ export class OrderStatusStream implements DurableObject {
     await this.state.storage.put(`writer-${key}`, { orderId, createdAt: Date.now() });
 
     // 清理旧的 writer
-    this.cleanupOldWriters();
+    await this.cleanupOldWriters();
 
     // 注意：Durable Object 不能真正保持 HTTP 连接，这里使用一种轻量级方案
     // 实际生产中可以考虑用 WebSocket + Durable Object 或者简单轮询

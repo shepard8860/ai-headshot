@@ -43,7 +43,7 @@ actor APIService {
             Task {
                 let request = self.makeRequest(path: Constants.API.orderStatus(orderID: orderID))
                 do {
-                    let (bytes, response) = try await self.session.bytes(for: request)
+                    let (bytes, response) = try await self.session.bytes(for: request, delegate: nil)
                     try self.validate(response: response, data: Data())
                     var buffer = Data()
                     for try await byte in bytes {

@@ -123,7 +123,7 @@ struct ImagePreviewSheet: View {
                     case .success(let image):
                         image
                             .resizable()
-                            .scaledToFit
+                            .scaledToFit()
                     default:
                         ProgressView()
                     }
@@ -139,6 +139,6 @@ struct ImagePreviewSheet: View {
     }
 }
 
-extension String: @retroactive Identifiable {
+extension String: Identifiable {
     public var id: String { self }
 }

@@ -54,7 +54,7 @@ final class IAPService: ObservableObject {
         }
     }
 
-    enum IAPError: Error {
+    enum IAPError: Error, Equatable {
         case userCancelled
         case pending
         case unverified

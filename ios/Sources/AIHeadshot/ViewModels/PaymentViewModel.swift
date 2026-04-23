@@ -22,7 +22,8 @@ final class PaymentViewModel: ObservableObject {
         errorMessage = nil
         do {
             let transaction = try await IAPService.shared.purchase(product)
-            let receipt = transaction.appStoreReceiptURL?.absoluteString ?? ""
+            let receiptURL = Bundle.main.appStoreReceiptURL
+            let receipt = receiptURL.flatMap { try? Data(contentsOf: $0).base64EncodedString() } ?? ""
             let result = try await APIService.shared.verifyPayment(orderID: orderID, receiptData: receipt)
             purchaseSuccess = result.success
         } catch let error as IAPService.IAPError where error == .userCancelled {

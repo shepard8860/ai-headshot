@@ -3,7 +3,8 @@
  * 使用 Hono 框架
  */
 import { Hono } from "hono";
-import type { Env, CreateOrderRequest, AICallbackRequest, VerifyPaymentRequest } from "./types";
+import { cors } from "hono/cors";
+import type { Env, CreateOrderRequest, AICallbackRequest, VerifyPaymentRequest, OrderStatusEvent } from "./types";
 import {
   generateOrderId,
   jsonResponse,
@@ -14,8 +15,7 @@ import {
 import { getLeanCloudClient } from "./leancloud";
 import { generateHeadshot, healthCheck } from "./ai-providers";
 import { verifyAppleReceipt } from "./iap";
-import { generateDownloadUrl, generateSignedUrl } from "./oss";
-import { OrderStatusStream } from "./durable-objects";
+import { generateDownloadUrl, generateSignedUrl, generateUploadUrl } from "./oss";
 import { adminApp } from "./admin";
 
 // 定义 Hono Context 类型
@@ -25,6 +25,13 @@ type Context = {
 };
 
 const app = new Hono<Context>();
+
+// CORS
+app.use("/*", cors({
+  origin: "*",
+  allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowHeaders: ["Content-Type", "Authorization"],
+}));
 
 // ====== 运营管理后台 ======
 app.route("/admin", adminApp);
@@ -150,7 +157,7 @@ async function triggerGeneration(
 
     // 生成 OSS 签名 URL（预览图）
     const signedUrls = await Promise.all(
-      result.imageUrls.map((url, index) => {
+      result.imageUrls.map((url) => {
         // 如果是绝对 URL，直接返回
         if (url.startsWith("http")) return Promise.resolve(url);
         // 否则生成签名 URL
@@ -189,12 +196,15 @@ async function triggerGeneration(
 async function pushStatus(
   env: Env,
   orderId: string,
-  event: { status: string; progress: number; preview_urls?: string[]; message?: string; error_message?: string }
+  event: OrderStatusEvent
 ): Promise<void> {
   try {
     const id = env.ORDER_STATUS_STREAM.idFromName(orderId);
     const stub = env.ORDER_STATUS_STREAM.get(id);
-    await stub.pushEvent(orderId, event);
+    await stub.fetch(new Request("http://internal/push", {
+      method: "POST",
+      body: JSON.stringify({ orderId, event }),
+    }));
   } catch (err) {
     log("warn", "Failed to push status to Durable Object", { orderId, error: String(err) });
   }
@@ -221,7 +231,7 @@ app.get("/api/order/:id/status", async (c) => {
       (async () => {
         try {
           // 发送初始状态
-          writer.write(
+          await writer.write(
             encoder.encode(
               `data: ${JSON.stringify({
                 status: order.status,
@@ -234,7 +244,7 @@ app.get("/api/order/:id/status", async (c) => {
 
           // 如果订单已经完成或失败，关闭连接
           if (order.status === "COMPLETED" || order.status === "FAILED" || order.status === "PAID") {
-            writer.close();
+            await writer.close();
             return;
           }
 
@@ -245,7 +255,7 @@ app.get("/api/order/:id/status", async (c) => {
             const latest = await lc.getOrderByOrderId(orderId);
             if (!latest) break;
 
-            writer.write(
+            await writer.write(
               encoder.encode(
                 `data: ${JSON.stringify({
                   status: latest.status,
@@ -265,9 +275,9 @@ app.get("/api/order/:id/status", async (c) => {
             }
           }
 
-          writer.close();
+          await writer.close();
         } catch {
-          writer.close();
+          await writer.close();
         }
       })()
     );
@@ -476,4 +486,4 @@ app.onError((err, c) => {
   return errorResponse("Internal server error", "INTERNAL_ERROR", 500, err.message);
 });
 
-export { app, OrderStatusStream };
+export { app };

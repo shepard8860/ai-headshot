@@ -112,8 +112,8 @@ adminApp.get("/", async (c) => {
 
 // ====== GET /admin/orders - 订单列表 ======
 adminApp.get("/orders", async (c) => {
-  const page = parseInt(c.req.query("page") || "1", 10);
-  const pageSize = Math.min(parseInt(c.req.query("pageSize") || "20", 10), 100);
+  const page = Math.max(parseInt(c.req.query("page") || "1", 10) || 1, 1);
+  const pageSize = Math.min(Math.max(parseInt(c.req.query("pageSize") || "20", 10) || 20, 1), 100);
   const status = c.req.query("status");
   const skip = (page - 1) * pageSize;
 

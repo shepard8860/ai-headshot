@@ -51,10 +51,10 @@ export async function fetchWithRetry(
   for (let i = 0; i < retries; i++) {
     try {
       const response = await fetch(input, init);
-      if (response.status < 500) {
+      if (response.status < 500 && response.status !== 429) {
         return response;
       }
-      // 服务器错误时重试
+      // 服务器错误或 429 时重试
       lastError = new Error(`HTTP ${response.status}: ${response.statusText}`);
     } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err));

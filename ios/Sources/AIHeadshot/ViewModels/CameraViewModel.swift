@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import AVFoundation
 import Vision
+import UIKit
 
 @MainActor
 final class CameraViewModel: ObservableObject {
@@ -39,25 +40,25 @@ final class CameraViewModel: ObservableObject {
             session.addOutput(videoOutput)
         }
 
-        DispatchQueue.main.async {
-            let layer = AVCaptureVideoPreviewLayer(session: self.session)
-            layer.videoGravity = .resizeAspectFill
-            previewView.videoPreviewLayer = layer
-        }
+        let layer = AVCaptureVideoPreviewLayer(session: session)
+        layer.videoGravity = .resizeAspectFill
+        previewView.videoPreviewLayer = layer
     }
 
     func startSession() {
+        let s = session
         DispatchQueue.global(qos: .userInitiated).async {
-            if !self.session.isRunning {
-                self.session.startRunning()
+            if !s.isRunning {
+                s.startRunning()
             }
         }
     }
 
     func stopSession() {
+        let s = session
         DispatchQueue.global(qos: .userInitiated).async {
-            if self.session.isRunning {
-                self.session.stopRunning()
+            if s.isRunning {
+                s.stopRunning()
             }
         }
     }

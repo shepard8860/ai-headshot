@@ -71,7 +71,7 @@ struct UploadView: View {
             .navigationTitle("确认上传")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(isPresented: $navigateToProgress) {
-                ProgressView(orderID: generateVM.orderID, viewModel: generateVM)
+                GenerationProgressView(orderID: generateVM.orderID, viewModel: generateVM)
             }
         }
     }
