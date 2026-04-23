@@ -1,0 +1,50 @@
+[
+  {
+    "id": "legal_lawyer_male_001",
+    "name": "律师形象照（男）",
+    "category": "法律政府",
+    "category_id": "legal_government",
+    "description": "律师职业形象照，展现专业权威与逻辑严密，适合律师、合伙人、法务专家",
+    "style_prompt": "Professional lawyer portrait, authoritative and sharp expression, legal expertise and confidence, traditional professional power, trustworthy counsel",
+    "background_prompt": "Classic law office or courtroom ambiance blur, rich wood tones and leather, traditional legal authority setting",
+    "clothing_prompt": "Impeccable dark suit, crisp white shirt, conservative tie, polished legal professional attire, traditional power dressing",
+    "lighting_prompt": "Traditional professional lighting, even and authoritative, slight formality, classic portrait setup",
+    "color_tone": "Classic legal palette, deep navy and burgundy tones, authoritative warm skin, traditional professional colors",
+    "preview_image_url": "https://cdn.example.com/templates/legal_lawyer_male_001.jpg",
+    "is_active": true,
+    "sort_order": 1,
+    "created_for_gender": "male"
+  },
+  {
+    "id": "legal_lawyer_female_001",
+    "name": "律师形象照（女）",
+    "category": "法律政府",
+    "category_id": "legal_government",
+    "description": "女性律师职业形象照，展现专业威严与精致品味，适合女律师、法务专家",
+    "style_prompt": "Female lawyer portrait, powerful and elegant expression, legal authority with feminine sophistication, commanding courtroom presence",
+    "background_prompt": "Elegant law firm interior blur, refined and professional, modern legal authority with warmth",
+    "clothing_prompt": "Powerful tailored suit in dark navy or charcoal, silk blouse, refined jewelry, sophisticated legal professional",
+    "lighting_prompt": "Professional elegant lighting, flattering but authoritative, modern legal portrait quality",
+    "color_tone": "Sophisticated legal palette, deep tones with elegant warmth, confident skin tones, modern professional authority",
+    "preview_image_url": "https://cdn.example.com/templates/legal_lawyer_female_001.jpg",
+    "is_active": true,
+    "sort_order": 2,
+    "created_for_gender": "female"
+  },
+  {
+    "id": "gov_civil_001",
+    "name": "公务员形象照",
+    "category": "法律政府",
+    "category_id": "legal_government",
+    "description": "公务员职业形象照，展现为人民服务与稳重可靠，适合政府工作人员、公务员、事业单位职员",
+    "style_prompt": "Civil servant portrait, trustworthy and composed expression, public service dedication, reliable and approachable government professional",
+    "background_prompt": "Neutral government office or public building blur, clean and official, understated authority setting",
+    "clothing_prompt": "Formal government attire, dark suit or official uniform, conservative and neat, respectable public servant appearance",
+    "lighting_prompt": "Even formal lighting, clear and trustworthy, official portrait quality, no dramatic effects",
+    "color_tone": "Official neutral palette, trustworthy blues and grays, natural respectful skin tones, government professional colors",
+    "preview_image_url": "https://cdn.example.com/templates/gov_civil_001.jpg",
+    "is_active": true,
+    "sort_order": 3,
+    "created_for_gender": "unisex"
+  }
+]

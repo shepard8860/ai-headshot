@@ -1,0 +1,34 @@
+[
+  {
+    "id": "sales_manager_male_001",
+    "name": "销售经理形象照（男）",
+    "category": "销售市场",
+    "category_id": "sales_marketing",
+    "description": "销售经理职业形象照，展现亲和力与说服力，适合销售经理、大客户经理、商务拓展",
+    "style_prompt": "Sales manager portrait, confident and friendly expression, persuasive charm, approachable business winner, dynamic professional energy",
+    "background_prompt": "Modern corporate office or city view blur, success-oriented environment, dynamic business atmosphere",
+    "clothing_prompt": "Sharp business attire, well-fitted suit in navy or charcoal, confident tie or open collar, successful sales professional look",
+    "lighting_prompt": "Bright confident lighting, energetic and welcoming, success-oriented atmosphere, vibrant and engaging",
+    "color_tone": "Dynamic business palette, confident blues and warm accents, successful vibrant skin tones, winning colors",
+    "preview_image_url": "https://cdn.example.com/templates/sales_manager_male_001.jpg",
+    "is_active": true,
+    "sort_order": 1,
+    "created_for_gender": "male"
+  },
+  {
+    "id": "market_director_female_001",
+    "name": "市场总监形象照（女）",
+    "category": "销售市场",
+    "category_id": "sales_marketing",
+    "description": "市场总监职业形象照，展现战略视野与品牌氛围，适合市场总监、CMO、品牌负责人",
+    "style_prompt": "Marketing director portrait, strategic and creative expression, brand-savvy professional, dynamic leadership with style, modern marketing authority",
+    "background_prompt": "Trendy modern office or creative workspace blur, brand-conscious environment, dynamic marketing setting",
+    "clothing_prompt": "Fashion-forward business attire, statement blazer or dress, contemporary professional with personal brand, stylish and authoritative",
+    "lighting_prompt": "Modern vibrant lighting, dynamic and stylish, brand-conscious atmosphere, contemporary and engaging",
+    "color_tone": "Vibrant modern palette, confident warm tones with contemporary edge, glowing skin, marketing creativity colors",
+    "preview_image_url": "https://cdn.example.com/templates/market_director_female_001.jpg",
+    "is_active": true,
+    "sort_order": 2,
+    "created_for_gender": "female"
+  }
+]

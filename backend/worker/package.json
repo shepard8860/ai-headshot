@@ -1,0 +1,23 @@
+{
+  "name": "ai-headshot-worker",
+  "version": "1.0.0",
+  "description": "AI职业形象照后端服务 - Cloudflare Worker",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts"
+  },
+  "dependencies": {
+    "hono": "^4.4.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "typescript": "^5.4.5",
+    "wrangler": "^3.57.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

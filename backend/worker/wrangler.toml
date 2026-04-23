@@ -1,0 +1,41 @@
+name = "ai-headshot-worker"
+main = "src/index.ts"
+compatibility_date = "2024-05-12"
+compatibility_flags = ["nodejs_compat"]
+
+# 环境变量（生产环境请在 Cloudflare Dashboard 或 wrangler secret 中设置）
+[vars]
+LEANCLOUD_APP_ID = ""
+LEANCLOUD_APP_KEY = ""
+LEANCLOUD_SERVER_URL = "https://your-leancloud-server.example.com"
+
+SENSENOVA_API_KEY = ""
+SENSENOVA_API_URL = "https://api.sensenova.cn/v1"
+
+ALIYUN_ACCESS_KEY_ID = ""
+ALIYUN_ACCESS_KEY_SECRET = ""
+ALIYUN_OSS_ENDPOINT = "oss-cn-beijing.aliyuncs.com"
+ALIYUN_OSS_BUCKET = "ai-headshot-bucket"
+ALIYUN_WANXI_API_URL = "https://dashscope.aliyuncs.com/api/v1"
+
+APPLE_SHARED_SECRET=***
+APPLE_SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt"
+APPLE_PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt"
+
+# 管理后台 Basic Auth（生产环境建议通过 wrangler secret 设置）
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = ""
+
+# Durable Object（用于 SSE 推送和订单状态管理）
+[[durable_objects.bindings]]
+name = "ORDER_STATUS_STREAM"
+class_name = "OrderStatusStream"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["OrderStatusStream"]
+
+# KV Namespace（用于模板缓存、健康检查状态）
+[[kv_namespaces]]
+binding = "HEADSHOT_KV"
+id = "your-kv-namespace-id"

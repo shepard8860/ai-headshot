@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+
+# Xcode / Swift
+ios/.build/
+ios/.swiftpm/
+ios/*.xcodeproj/
+ios/*.xcworkspace/
+ios/DerivedData/
+ios/.idea/
+
+# Node.js
+backend/worker/node_modules/
+backend/worker/dist/
+backend/worker/.wrangler/
+backend/worker/.dev.vars
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+.env.local
+.dev.vars
+
+# Secrets
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS
+Thumbs.db

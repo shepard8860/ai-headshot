@@ -1,0 +1,50 @@
+[
+  {
+    "id": "creative_designer_male_001",
+    "name": "设计师形象照（男）",
+    "category": "创意设计",
+    "category_id": "creative_design",
+    "description": "设计师职业形象照，展现创意美学与个性风格，适合平面设计师、UI/UX设计师、广告创意",
+    "style_prompt": "Creative designer portrait, artistic and confident expression, modern creative professional, individual style with polish, contemporary aesthetic",
+    "background_prompt": "Minimal creative studio or design workspace blur, clean modern aesthetic, subtle art elements, contemporary creative environment",
+    "clothing_prompt": "Stylish modern attire, creative professional look, fitted shirt or turtleneck in black or neutral, subtle artistic flair, clean lines",
+    "lighting_prompt": "Artistic studio lighting, creative and modern, slight directional light for character, contemporary portrait style",
+    "color_tone": "Modern creative palette, monochrome neutrals with subtle artistic accents, clean and sophisticated, natural skin with edge",
+    "preview_image_url": "https://cdn.example.com/templates/creative_designer_male_001.jpg",
+    "is_active": true,
+    "sort_order": 1,
+    "created_for_gender": "male"
+  },
+  {
+    "id": "creative_designer_female_001",
+    "name": "设计师形象照（女）",
+    "category": "创意设计",
+    "category_id": "creative_design",
+    "description": "女性设计师职业形象照，展现艺术感与时尚品味，适合女设计师、美术指导、创意总监",
+    "style_prompt": "Female designer portrait, creative and sophisticated expression, modern artistic professional, elegant individual style, fashion-forward creative",
+    "background_prompt": "Clean modern studio with subtle design elements, artistic minimalism, contemporary creative workspace blur",
+    "clothing_prompt": "Chic creative professional attire, artistic blouse or top with statement accessories, modern fashion sensibility, individual expression",
+    "lighting_prompt": "Soft artistic lighting with gentle direction, flattering and modern, creative studio quality",
+    "color_tone": "Sophisticated creative palette, soft neutrals with artistic warm accents, elegant natural skin, contemporary art tones",
+    "preview_image_url": "https://cdn.example.com/templates/creative_designer_female_001.jpg",
+    "is_active": true,
+    "sort_order": 2,
+    "created_for_gender": "female"
+  },
+  {
+    "id": "creative_culture_001",
+    "name": "文化创意形象照",
+    "category": "创意设计",
+    "category_id": "creative_design",
+    "description": "文化创意行业形象照，展现文化底蕴与时尚氛围，适合文创产业、媒体人、艺术管理者",
+    "style_prompt": "Cultural creative professional portrait, expressive and thoughtful, arts and culture vibe, contemporary intellectual creative, stylish and cultured",
+    "background_prompt": "Art gallery or modern cultural space blur, sophisticated and artistic environment, contemporary cultural setting",
+    "clothing_prompt": "Cultured contemporary attire, smart artistic style, possibly with cultural elements, refined and expressive, modern creative elegance",
+    "lighting_prompt": "Gallery-quality lighting, refined and artistic, soft with slight drama, cultured atmosphere",
+    "color_tone": "Cultured artistic palette, warm neutrals with rich undertones, sophisticated skin tones, gallery aesthetic colors",
+    "preview_image_url": "https://cdn.example.com/templates/creative_culture_001.jpg",
+    "is_active": true,
+    "sort_order": 3,
+    "created_for_gender": "unisex"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "health_doctor_male_001",
+    "name": "白大褂医生形象照（男）",
+    "category": "医疗健康",
+    "category_id": "healthcare",
+    "description": "专业医生形象照，展现医者仁心与专业权威，适合医师、主任医师、医疗专家",
+    "style_prompt": "Professional doctor portrait, trustworthy and compassionate expression, medical authority with warmth, clean clinical yet human photography",
+    "background_prompt": "Soft blurred hospital corridor or clean medical office, white and light blue tones, sterile but welcoming environment",
+    "clothing_prompt": "White lab coat over light blue or white medical scrubs, clean stethoscope optional, professional medical attire",
+    "lighting_prompt": "Bright clean medical lighting, soft and even, trustworthy and clear, no dramatic shadows",
+    "color_tone": "Clean medical whites and soft blues, pure and trustworthy palette, natural healthy skin tones",
+    "preview_image_url": "https://cdn.example.com/templates/health_doctor_male_001.jpg",
+    "is_active": true,
+    "sort_order": 1,
+    "created_for_gender": "male"
+  },
+  {
+    "id": "health_doctor_female_001",
+    "name": "白大褂医生形象照（女）",
+    "category": "医疗健康",
+    "category_id": "healthcare",
+    "description": "女性医生形象照，展现专业素养与温柔关怀，适合女医师、主任医师、医疗专家",
+    "style_prompt": "Female doctor portrait, professional and caring expression, medical expertise with feminine warmth, clean and approachable",
+    "background_prompt": "Soft blurred modern clinic background, gentle natural light from windows, clean and comforting medical space",
+    "clothing_prompt": "White lab coat over pastel scrubs or professional dress, minimal jewelry, neat professional medical appearance",
+    "lighting_prompt": "Soft bright lighting with gentle warmth, flattering and trustworthy, clean clinical quality",
+    "color_tone": "Clean whites and soft pastels, gentle blue-green accents, warm natural skin, healing palette",
+    "preview_image_url": "https://cdn.example.com/templates/health_doctor_female_001.jpg",
+    "is_active": true,
+    "sort_order": 2,
+    "created_for_gender": "female"
+  },
+  {
+    "id": "health_nurse_001",
+    "name": "护士形象照",
+    "category": "医疗健康",
+    "category_id": "healthcare",
+    "description": "护士职业形象照，展现细心、耐心与专业护理精神，适合护士、护士长、护理专家",
+    "style_prompt": "Professional nurse portrait, warm and caring expression, dedicated healthcare professional, approachable and trustworthy",
+    "background_prompt": "Soft blurred patient care area or modern hospital room, warm and comforting tones, human-centered medical environment",
+    "clothing_prompt": "Clean nursing scrubs in soft blue or pastel, optional nurse cap or badge, neat and professional medical uniform",
+    "lighting_prompt": "Warm soft lighting, gentle and comforting, natural and inviting, professional care atmosphere",
+    "color_tone": "Warm comforting palette, soft blues and gentle pinks, natural glowing skin, caring and human tones",
+    "preview_image_url": "https://cdn.example.com/templates/health_nurse_001.jpg",
+    "is_active": true,
+    "sort_order": 3,
+    "created_for_gender": "female"
+  }
+]
