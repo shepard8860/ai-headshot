@@ -1,7 +1,12 @@
 import Foundation
 
 enum Constants {
-    static let baseURL = URL(string: "https://api.ai-headshot.app")!
+    static let baseURL: URL = {
+        guard let url = URL(string: "https://api.ai-headshot.app") else {
+            fatalError("Invalid base URL")
+        }
+        return url
+    }()
     static let appGroupID = "group.com.ai-headshot.app"
     static let productID = "com.ai-headshot.hd_unlock"
 

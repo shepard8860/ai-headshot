@@ -12,7 +12,7 @@ final class OrderTests: XCTestCase {
 
     func testOrderStatusDecoding() throws {
         let json = "\"COMPLETED\""
-        let data = json.data(using: .utf8)!
+        let data = try XCTUnwrap(json.data(using: .utf8))
         let status = try JSONDecoder().decode(Constants.OrderStatus.self, from: data)
         XCTAssertEqual(status, .completed)
     }
@@ -30,7 +30,8 @@ final class OrderTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        let order = try decoder.decode(Order.self, from: json.data(using: .utf8)!)
+        let orderData = try XCTUnwrap(json.data(using: .utf8))
+        let order = try decoder.decode(Order.self, from: orderData)
         XCTAssertEqual(order.id, "ord-123")
         XCTAssertEqual(order.templateID, "tpl-business")
         XCTAssertEqual(order.status, .completed)
@@ -42,7 +43,7 @@ final class OrderTests: XCTestCase {
         let request = OrderCreateRequest(userID: "user-1", templateID: "tpl-1", originalImageURL: "https://example.com/img.jpg")
         let encoder = JSONEncoder()
         let data = try encoder.encode(request)
-        let dict = try JSONSerialization.jsonObject(with: data) as! [String: String]
+        let dict = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: String])
         XCTAssertEqual(dict["user_id"], "user-1")
         XCTAssertEqual(dict["template_id"], "tpl-1")
         XCTAssertEqual(dict["original_image_url"], "https://example.com/img.jpg")

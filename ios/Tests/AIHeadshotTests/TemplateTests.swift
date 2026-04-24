@@ -16,7 +16,7 @@ final class TemplateTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let template = try decoder.decode(Template.self, from: json.data(using: .utf8)!)
+        let template = try decoder.decode(Template.self, from: try XCTUnwrap(json.data(using: .utf8)))
         XCTAssertEqual(template.id, "tpl-001")
         XCTAssertEqual(template.name, "\u5546\u52a1\u6b63\u88c5")
         XCTAssertEqual(template.category, "\u6b63\u5f0f")
@@ -38,7 +38,7 @@ final class TemplateTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let template = try decoder.decode(Template.self, from: json.data(using: .utf8)!)
+        let template = try decoder.decode(Template.self, from: try XCTUnwrap(json.data(using: .utf8)))
         XCTAssertNil(template.price)
         XCTAssertFalse(template.isPremium)
     }

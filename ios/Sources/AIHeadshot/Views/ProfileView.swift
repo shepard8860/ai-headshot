@@ -157,6 +157,22 @@ struct InfoRow: View {
 }
 
 private let sampleOrders: [Order] = [
-    Order(id: "ord-001", templateID: "tpl-business", status: .paid, imageURL: "https://via.placeholder.com/400", createdAt: Date().addingTimeInterval(-86400), updatedAt: Date(), paid: true),
-    Order(id: "ord-002", templateID: "tpl-creative", status: .completed, imageURL: "https://via.placeholder.com/400", createdAt: Date().addingTimeInterval(-172800), updatedAt: Date(), paid: false)
+    Order(
+        id: "ord-001",
+        templateID: "tpl-business",
+        status: .paid,
+        imageURL: "https://via.placeholder.com/400",
+        createdAt: Date().addingTimeInterval(-86400),
+        updatedAt: Date(),
+        paid: true
+    ),
+    Order(
+        id: "ord-002",
+        templateID: "tpl-creative",
+        status: .completed,
+        imageURL: "https://via.placeholder.com/400",
+        createdAt: Date().addingTimeInterval(-172800),
+        updatedAt: Date(),
+        paid: false
+    )
 ]

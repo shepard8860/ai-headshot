@@ -46,19 +46,19 @@ final class CameraViewModel: ObservableObject {
     }
 
     func startSession() {
-        let s = session
+        let captureSession = session
         DispatchQueue.global(qos: .userInitiated).async {
-            if !s.isRunning {
-                s.startRunning()
+            if !captureSession.isRunning {
+                captureSession.startRunning()
             }
         }
     }
 
     func stopSession() {
-        let s = session
+        let captureSession = session
         DispatchQueue.global(qos: .userInitiated).async {
-            if s.isRunning {
-                s.stopRunning()
+            if captureSession.isRunning {
+                captureSession.stopRunning()
             }
         }
     }

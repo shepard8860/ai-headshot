@@ -36,7 +36,7 @@ struct Order: Identifiable, Codable, Equatable {
         imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL)
         createdAt = try container.decode(Date.self, forKey: .createdAt)
         updatedAt = try container.decode(Date.self, forKey: .updatedAt)
-        paid = (status == .paid)
+        paid = (status == .paid || status == .completed)
     }
 }
 
