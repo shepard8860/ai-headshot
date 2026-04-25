@@ -25,7 +25,7 @@ final class GenerateViewModel: ObservableObject {
     }
 
     private func listenToProgress(orderID: String) async {
-        let stream = APIService.shared.streamOrderStatus(orderID: orderID)
+        let stream = await APIService.shared.streamOrderStatus(orderID: orderID)
         do {
             for try await event in stream {
                 progress = event.progress

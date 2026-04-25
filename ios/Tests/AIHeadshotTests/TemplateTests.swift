@@ -6,20 +6,19 @@ final class TemplateTests: XCTestCase {
         let json = """
         {
             "template_id": "tpl-001",
-            "name": "\u5546\u52a1\u6b63\u88c5",
-            "category": "\u6b63\u5f0f",
+            "name": "商务正装",
+            "category": "正式",
             "thumbnail_url": "https://cdn.example.com/tpl001.jpg",
-            "description": "\u9002\u5408\u6c42\u804c\u7b80\u5386\u7684\u5546\u52a1\u6b63\u88c5\u7167",
+            "description": "适合求职简历的商务正装照",
             "price": 9.9,
             "is_premium": true
         }
         """
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         let template = try decoder.decode(Template.self, from: try XCTUnwrap(json.data(using: .utf8)))
         XCTAssertEqual(template.id, "tpl-001")
-        XCTAssertEqual(template.name, "\u5546\u52a1\u6b63\u88c5")
-        XCTAssertEqual(template.category, "\u6b63\u5f0f")
+        XCTAssertEqual(template.name, "商务正装")
+        XCTAssertEqual(template.category, "正式")
         XCTAssertEqual(template.thumbnailURL, "https://cdn.example.com/tpl001.jpg")
         XCTAssertEqual(template.price, 9.9)
         XCTAssertTrue(template.isPremium)
@@ -29,15 +28,14 @@ final class TemplateTests: XCTestCase {
         let json = """
         {
             "template_id": "tpl-002",
-            "name": "\u521b\u610f\u98ce\u683c",
-            "category": "\u4e2a\u6027",
+            "name": "创意风格",
+            "category": "个性",
             "thumbnail_url": "https://cdn.example.com/tpl002.jpg",
-            "description": "\u521b\u610f\u98ce\u683c\u7167",
+            "description": "创意风格照",
             "is_premium": false
         }
         """
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         let template = try decoder.decode(Template.self, from: try XCTUnwrap(json.data(using: .utf8)))
         XCTAssertNil(template.price)
         XCTAssertFalse(template.isPremium)

@@ -15,14 +15,14 @@ actor FaceDetectionService {
         let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
         try handler.perform([request])
 
-        guard let results = request.results as? [VNFaceObservation], let face = results.first else {
+        guard let results = request.results, let face = results.first else {
             var noFace = FaceQualityResult()
             noFace.message = "未检测到人脸，请将脸部放入框内"
             return noFace
         }
 
         var result = FaceQualityResult()
-        result.confidence = face.confidence
+        result.confidence = Double(face.confidence)
 
         // Check frontal pose (yaw and roll should be near zero)
         if let yaw = face.yaw?.doubleValue, let roll = face.roll?.doubleValue {

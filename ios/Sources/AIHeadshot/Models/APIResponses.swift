@@ -14,6 +14,14 @@ struct SSEProgressEvent: Codable {
     let message: String?
     let previewUrls: [String]?
     let errorMessage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case progress
+        case status
+        case message
+        case previewUrls = "preview_urls"
+        case errorMessage = "error_message"
+    }
 }
 
 struct TemplateListResponse: Codable {
@@ -33,6 +41,12 @@ struct VerifyPaymentResponse: Codable {
     let success: Bool
     let hdUrls: [String]?
     let message: String?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case hdUrls = "hd_urls"
+        case message
+    }
 }
 
 struct PresignedURLResponse: Codable {

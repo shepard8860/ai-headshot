@@ -13,7 +13,7 @@ final class IAPService: ObservableObject {
         do {
             let ids = [Constants.productID]
             products = try await Product.products(for: ids)
-            AppLogger.iap.info("Loaded \(products.count) products")
+            AppLogger.iap.info("Loaded \(self.products.count) products")
         } catch {
             AppLogger.iap.error("Failed to load products: \(error.localizedDescription)")
         }

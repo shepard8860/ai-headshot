@@ -5,7 +5,6 @@ final class APIResponseTests: XCTestCase {
     func decode<T: Decodable>(_ type: T.Type, from json: String) throws -> T {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try decoder.decode(type, from: try XCTUnwrap(json.data(using: .utf8)))
     }
 

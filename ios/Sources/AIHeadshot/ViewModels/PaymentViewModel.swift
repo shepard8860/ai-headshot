@@ -21,7 +21,7 @@ final class PaymentViewModel: ObservableObject {
         isPurchasing = true
         errorMessage = nil
         do {
-            let transaction = try await IAPService.shared.purchase(product)
+            _ = try await IAPService.shared.purchase(product)
             let receiptURL = Bundle.main.appStoreReceiptURL
             let receipt = receiptURL.flatMap { try? Data(contentsOf: $0).base64EncodedString() } ?? ""
             let result = try await APIService.shared.verifyPayment(orderID: orderID, receiptData: receipt)

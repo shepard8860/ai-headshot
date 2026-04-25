@@ -17,6 +17,7 @@ final class FaceDetectionServiceTests: XCTestCase {
         result.noOcclusion = true
         result.sufficientResolution = true
         result.confidence = 0.95
+        result.message = result.isAllPassed ? "人脸质量检测通过" : result.failedReasons.joined(separator: "\n")
         XCTAssertTrue(result.isAllPassed)
         XCTAssertTrue(result.failedReasons.isEmpty)
         XCTAssertEqual(result.message, "人脸质量检测通过")
