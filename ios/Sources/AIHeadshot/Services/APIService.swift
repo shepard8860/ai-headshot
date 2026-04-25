@@ -50,21 +50,19 @@ actor APIService {
                         buffer.append(byte)
                         if let string = String(data: buffer, encoding: .utf8), string.contains("\n\n") {
                             let lines = string.components(separatedBy: "\n")
-                            for line in lines {
-                                if line.hasPrefix("data: ") {
-                                    let json = String(line.dropFirst(6))
-                                    if let jsonData = json.data(using: .utf8) {
-                                        if let event = try? self.decoder.decode(SSEProgressEvent.self, from: jsonData) {
-                                            continuation.yield(event)
-                                            let terminalStatuses = [
-                                                Constants.OrderStatus.completed.rawValue,
-                                                Constants.OrderStatus.failed.rawValue,
-                                                Constants.OrderStatus.paid.rawValue
-                                            ]
-                                            if event.progress >= 100.0 || terminalStatuses.contains(event.status) {
-                                                continuation.finish()
-                                                return
-                                            }
+                            for line in lines where line.hasPrefix("data: ") {
+                                let json = String(line.dropFirst(6))
+                                if let jsonData = json.data(using: .utf8) {
+                                    if let event = try? self.decoder.decode(SSEProgressEvent.self, from: jsonData) {
+                                        continuation.yield(event)
+                                        let terminalStatuses = [
+                                            Constants.OrderStatus.completed.rawValue,
+                                            Constants.OrderStatus.failed.rawValue,
+                                            Constants.OrderStatus.paid.rawValue
+                                        ]
+                                        if event.progress >= 100.0 || terminalStatuses.contains(event.status) {
+                                            continuation.finish()
+                                            return
                                         }
                                     }
                                 }

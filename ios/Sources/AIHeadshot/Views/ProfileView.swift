@@ -96,7 +96,7 @@ struct OrderDetailView: View {
                 if let urlString = order.imageURL, let url = URL(string: urlString) {
                     AsyncImage(url: url) { phase in
                         switch phase {
-                    case .success(let image):
+                        case .success(let image):
                         image
                             .resizable()
                             .scaledToFit()

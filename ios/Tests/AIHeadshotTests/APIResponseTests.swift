@@ -21,7 +21,8 @@ final class APIResponseTests: XCTestCase {
 
     func testSSEProgressEventDecoding() throws {
         let json = """
-        {"progress": 75, "status": "GENERATING", "message": "Processing hair", "preview_urls": ["https://example.com/img.jpg"], "error_message": null}
+        {"progress": 75, "status": "GENERATING", "message": "Processing hair", \
+        "preview_urls": ["https://example.com/img.jpg"], "error_message": null}
         """
         let event = try decode(SSEProgressEvent.self, from: json)
         XCTAssertEqual(event.progress, 75)
@@ -35,7 +36,9 @@ final class APIResponseTests: XCTestCase {
         {
             "total": 1,
             "templates": [
-                {"template_id": "t1", "name": "Business", "category": "Formal", "thumbnail_url": "https://example.com/t1.jpg", "description": "Professional", "price": 9.9, "is_premium": true}
+                {"template_id": "t1", "name": "Business", "category": "Formal", \
+                 "thumbnail_url": "https://example.com/t1.jpg", "description": "Professional", \
+                 "price": 9.9, "is_premium": true}
             ]
         }
         """

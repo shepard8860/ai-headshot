@@ -19,7 +19,7 @@ final class GenerateViewModel: ObservableObject {
             orderID = id
             await listenToProgress(orderID: id)
         } catch {
-            errorMessage = "\u521b\u5efa\u8ba2\u5355\u5931\u8d25: \(error.localizedDescription)"
+            errorMessage = "创建订单失败: \(error.localizedDescription)"
             isLoading = false
         }
     }
@@ -36,16 +36,18 @@ final class GenerateViewModel: ObservableObject {
                 if let urls = event.previewUrls {
                     resultImageURLs = urls
                 }
-                if event.progress >= 100.0 || event.status == Constants.OrderStatus.completed.rawValue || event.status == Constants.OrderStatus.paid.rawValue {
+                if event.progress >= 100.0 ||
+                    event.status == Constants.OrderStatus.completed.rawValue ||
+                    event.status == Constants.OrderStatus.paid.rawValue {
                     break
                 }
                 if event.status == Constants.OrderStatus.failed.rawValue {
-                    errorMessage = event.errorMessage ?? "\u751f\u6210\u5931\u8d25"
+                    errorMessage = event.errorMessage ?? "生成失败"
                     break
                 }
             }
         } catch {
-            errorMessage = "\u8fdb\u5ea6\u8fde\u63a5\u4e2d\u65ad: \(error.localizedDescription)"
+            errorMessage = "进度连接中断: \(error.localizedDescription)"
         }
         isLoading = false
     }

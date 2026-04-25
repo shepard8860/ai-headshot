@@ -73,9 +73,7 @@ struct CameraView: View {
     }
 
     private var captureButton: some View {
-        Button(action: {
-            viewModel.capturePhoto()
-        }) {
+        Button(action: viewModel.capturePhoto) {
             ZStack {
                 Circle()
                     .fill(Color.white)
