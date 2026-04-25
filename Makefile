@@ -106,7 +106,34 @@ oss-lifecycle:
 # iOS 构建
 # --------------------------------------------------
 ios-build:
-	cd ios && swift build
+	cd ios && xcodebuild \
+		-scheme AIHeadshot \
+		-destination 'platform=iOS Simulator,name=iPhone 16' \
+		-derivedDataPath .build/DerivedData \
+		build CODE_SIGNING_ALLOWED=NO
+
+ios-test:
+	cd ios && xcodebuild \
+		-scheme AIHeadshot \
+		-destination 'platform=iOS Simulator,name=iPhone 16' \
+		-derivedDataPath .build/DerivedData \
+		test CODE_SIGNING_ALLOWED=NO
+
+ios-archive:
+	cd ios && xcodebuild \
+		-scheme AIHeadshot \
+		-archivePath .build/AIHeadshot.xcarchive \
+		archive
+
+ios-export:
+	cd ios && xcodebuild \
+		-exportArchive \
+		-archivePath .build/AIHeadshot.xcarchive \
+		-exportPath .build/Export \
+		-exportOptionsPlist exportOptions.plist
+
+ios-lint:
+	cd ios && /opt/homebrew/bin/swiftlint lint
 
 # --------------------------------------------------
 # 清理
