@@ -59,7 +59,9 @@ struct UploadView: View {
                 Button("开始生成") {
                     Task {
                         await generateVM.startGeneration(userID: userID, templateID: template.id, imageURL: imageURL)
-                        navigateToProgress = true
+                        if generateVM.errorMessage == nil {
+                            navigateToProgress = true
+                        }
                     }
                 }
                 .buttonStyle(.borderedProminent)

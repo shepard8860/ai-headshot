@@ -38,13 +38,16 @@ actor APIService {
     }
 
     // MARK: - SSE Progress
-    func streamOrderStatus(orderID: String) -> AsyncThrowingStream<SSEProgressEvent, Error> {
+    func streamOrderStatus(orderID: String) async -> AsyncThrowingStream<SSEProgressEvent, Error> {
         AsyncThrowingStream { continuation in
-            Task {
+            let task = Task {
                 let request = self.makeRequest(path: Constants.API.orderStatus(orderID: orderID))
                 do {
                     let (bytes, response) = try await self.session.bytes(for: request, delegate: nil)
-                    try self.validate(response: response, data: Data())
+                    guard let httpResponse = response as? HTTPURLResponse,
+                          (200..<300).contains(httpResponse.statusCode) else {
+                        throw URLError(.badServerResponse)
+                    }
                     var buffer = Data()
                     for try await byte in bytes {
                         buffer.append(byte)
@@ -74,6 +77,9 @@ actor APIService {
                 } catch {
                     continuation.finish(throwing: error)
                 }
+            }
+            continuation.onTermination = { _ in
+                task.cancel()
             }
         }
     }

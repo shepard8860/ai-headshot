@@ -103,16 +103,18 @@ final class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
 
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
+            let vm = viewModel
             Task { @MainActor in
-                viewModel?.errorMessage = "拍照失败: \(error.localizedDescription)"
+                vm?.errorMessage = "拍照失败: \(error.localizedDescription)"
             }
             return
         }
         guard let data = photo.fileDataRepresentation(), let image = UIImage(data: data) else { return }
+        let vm = viewModel
         Task { @MainActor in
-            viewModel?.capturedImage = image
-            viewModel?.showCamera = false
-            await viewModel?.analyzeCapturedImage()
+            vm?.capturedImage = image
+            vm?.showCamera = false
+            await vm?.analyzeCapturedImage()
         }
     }
 }

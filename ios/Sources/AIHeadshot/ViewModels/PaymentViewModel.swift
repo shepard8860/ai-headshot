@@ -22,8 +22,11 @@ final class PaymentViewModel: ObservableObject {
         errorMessage = nil
         do {
             _ = try await IAPService.shared.purchase(product)
-            let receiptURL = Bundle.main.appStoreReceiptURL
-            let receipt = receiptURL.flatMap { try? Data(contentsOf: $0).base64EncodedString() } ?? ""
+            guard let receiptURL = Bundle.main.appStoreReceiptURL else {
+                throw NSError(domain: "Payment", code: -1, userInfo: [NSLocalizedDescriptionKey: "无法获取购买收据"])
+            }
+            let data = try Data(contentsOf: receiptURL)
+            let receipt = data.base64EncodedString()
             let result = try await APIService.shared.verifyPayment(orderID: orderID, receiptData: receipt)
             purchaseSuccess = result.success
         } catch let error as IAPService.IAPError where error == .userCancelled {

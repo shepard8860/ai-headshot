@@ -60,8 +60,13 @@ struct ResultView: View {
                 }
             }
         }
-        .sheet(item: $selectedImageURL) { url in
-            ImagePreviewSheet(url: url)
+        .sheet(isPresented: Binding<Bool>(
+            get: { selectedImageURL != nil },
+            set: { if !$0 { selectedImageURL = nil } }
+        )) {
+            if let url = selectedImageURL {
+                ImagePreviewSheet(url: url)
+            }
         }
         .sheet(isPresented: $showPayment) {
             PaymentView(orderID: orderID)
@@ -139,6 +144,4 @@ struct ImagePreviewSheet: View {
     }
 }
 
-extension String: Identifiable {
-    public var id: String { self }
-}
+
