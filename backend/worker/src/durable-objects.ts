@@ -75,7 +75,8 @@ export class OrderStatusStream implements DurableObject {
 
     // 如果状态是终态，设置过期时间
     if (event.status === "COMPLETED" || event.status === "FAILED" || event.status === "PAID") {
-      await this.state.storage.put(`event-${orderId}`, event, { expirationTtl: 86400 });
+      // Durable Object Storage does not support TTL; manual cleanup recommended
+      await this.state.storage.put(`event-${orderId}`, event);
     }
   }
 

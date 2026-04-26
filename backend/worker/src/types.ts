@@ -44,6 +44,7 @@ export interface CreateOrderRequest {
   user_id: string;
   template_id: string;
   original_image_url: string;
+  [key: string]: unknown;
 }
 
 // 创建订单响应
@@ -66,6 +67,7 @@ export interface OrderStatusEvent {
 export interface VerifyPaymentRequest {
   receipt_data: string;
   is_sandbox?: boolean;
+  [key: string]: unknown;
 }
 
 // 验证支付响应
@@ -82,6 +84,7 @@ export interface AICallbackRequest {
   image_urls?: string[];
   error_message?: string;
   provider: string;
+  [key: string]: unknown;
 }
 
 // 商汤 SenseNova 请求

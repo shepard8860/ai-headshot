@@ -46,6 +46,7 @@ adminApp.use("/*", async (c, next) => {
     }
 
     await next();
+    return;
   } catch {
     return new Response("Unauthorized", {
       status: 401,
