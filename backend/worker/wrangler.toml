@@ -18,7 +18,7 @@ ALIYUN_OSS_ENDPOINT = "oss-cn-beijing.aliyuncs.com"
 ALIYUN_OSS_BUCKET = "ai-headshot-bucket"
 ALIYUN_WANXI_API_URL = "https://dashscope.aliyuncs.com/api/v1"
 
-APPLE_SHARED_SECRET=***
+APPLE_SHARED_SECRET = ""
 APPLE_SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt"
 APPLE_PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt"
 
