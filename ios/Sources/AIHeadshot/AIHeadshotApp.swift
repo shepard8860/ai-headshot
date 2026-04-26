@@ -13,11 +13,10 @@ struct AIHeadshotApp: App {
                 if showLaunchScreen {
                     LaunchScreenView()
                         .transition(.opacity)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                withAnimation(.easeOut(duration: 0.5)) {
-                                    showLaunchScreen = false
-                                }
+                        .task {
+                            try? await Task.sleep(nanoseconds: 2_000_000_000)
+                            withAnimation(.easeOut(duration: 0.5)) {
+                                showLaunchScreen = false
                             }
                         }
                 }

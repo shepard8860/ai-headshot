@@ -15,29 +15,31 @@ final class CameraViewModel: ObservableObject {
     @Published var showCamera = false
 
     let session = AVCaptureSession()
-    private var videoOutput = AVCaptureVideoDataOutput()
     private var photoOutput = AVCapturePhotoOutput()
-    private var previewLayer: AVCaptureVideoPreviewLayer?
 
     func setupSession(previewView: CameraPreviewView) async {
         session.beginConfiguration()
         session.sessionPreset = .photo
         defer { session.commitConfiguration() }
 
-        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
-              let input = try? AVCaptureDeviceInput(device: device),
-              session.canAddInput(input) else {
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
             errorMessage = "无法访问前置摄像头"
             return
         }
-        session.addInput(input)
+        do {
+            let input = try AVCaptureDeviceInput(device: device)
+            guard session.canAddInput(input) else {
+                errorMessage = "无法添加摄像头输入"
+                return
+            }
+            session.addInput(input)
+        } catch {
+            errorMessage = "摄像头设置失败: \(error.localizedDescription)"
+            return
+        }
 
         if session.canAddOutput(photoOutput) {
             session.addOutput(photoOutput)
-        }
-
-        if session.canAddOutput(videoOutput) {
-            session.addOutput(videoOutput)
         }
 
         let layer = AVCaptureVideoPreviewLayer(session: session)

@@ -6,15 +6,18 @@ final class IAPService: ObservableObject {
     static let shared = IAPService()
     @Published var products: [Product] = []
     @Published var purchasedProductIDs: Set<String> = []
+    @Published var loadError: Error?
 
     private init() {}
 
     func loadProducts() async {
+        loadError = nil
         do {
             let ids = [Constants.productID]
             products = try await Product.products(for: ids)
             AppLogger.iap.info("Loaded \(self.products.count) products")
         } catch {
+            loadError = error
             AppLogger.iap.error("Failed to load products: \(error.localizedDescription)")
         }
     }

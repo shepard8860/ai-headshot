@@ -33,9 +33,6 @@ struct CameraView: View {
                     UploadView(template: template, imageURL: url, userID: userID)
                 }
             }
-            .navigationDestination(isPresented: .constant(false)) {
-                EmptyView()
-            }
         }
     }
 
