@@ -7,14 +7,14 @@ let package = Package(
         .iOS(.v16)
     ],
     products: [
-        .library(
+        .executable(
             name: "AIHeadshot",
             targets: ["AIHeadshot"]
         )
     ],
     dependencies: [],
     targets: [
-        .target(
+        .executableTarget(
             name: "AIHeadshot",
             dependencies: [],
             path: "Sources/AIHeadshot",
