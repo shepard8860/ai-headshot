@@ -108,14 +108,14 @@ oss-lifecycle:
 ios-build:
 	cd ios && xcodebuild \
 		-scheme AIHeadshot \
-		-destination 'platform=iOS Simulator,name=iPhone 16' \
+		-destination 'platform=iOS Simulator,name=iPhone 17' \
 		-derivedDataPath .build/DerivedData \
 		build CODE_SIGNING_ALLOWED=NO
 
 ios-test:
 	cd ios && xcodebuild \
 		-scheme AIHeadshot \
-		-destination 'platform=iOS Simulator,name=iPhone 16' \
+		-destination 'platform=iOS Simulator,name=iPhone 17' \
 		-derivedDataPath .build/DerivedData \
 		test CODE_SIGNING_ALLOWED=NO
 
