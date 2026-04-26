@@ -10,8 +10,7 @@ final class ResultViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         do {
-            // In a real app, fetch result images from API using orderID
-            // Here we simulate network delay and demo data
+            #if DEBUG
             try await Task.sleep(nanoseconds: 1_000_000_000)
             thumbnails = [
                 "https://via.placeholder.com/300/blue",
@@ -24,6 +23,10 @@ final class ResultViewModel: ObservableObject {
                 "https://via.placeholder.com/300/yellow",
                 "https://via.placeholder.com/300/gray"
             ]
+            #else
+            let result = try await APIService.shared.verifyPayment(orderID: orderID, receiptData: "")
+            thumbnails = result.imageURLs ?? []
+            #endif
         } catch {
             errorMessage = "加载结果失败: \(error.localizedDescription)"
         }

@@ -29,11 +29,11 @@ struct AIHeadshotApp: App {
 struct ContentView: View {
     @State private var selectedTab = 0
     let userID: String = {
-        if let stored = UserDefaults.standard.string(forKey: "ai_headshot_user_id") {
+        if let stored = UserDefaults.standard.string(forKey: Constants.userDefaultsUserIDKey) {
             return stored
         }
         let newID = UUID().uuidString
-        UserDefaults.standard.set(newID, forKey: "ai_headshot_user_id")
+        UserDefaults.standard.set(newID, forKey: Constants.userDefaultsUserIDKey)
         return newID
     }()
 

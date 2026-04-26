@@ -52,7 +52,7 @@ struct ResultView: View {
                     }
                     .padding(.horizontal)
 
-                    Button("解锁高清原图 (¥9.9)") {
+                    Button("解锁高清原图") {
                         showPayment = true
                     }
                     .buttonStyle(.borderedProminent)

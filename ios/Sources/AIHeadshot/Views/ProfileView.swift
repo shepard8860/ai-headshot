@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct ProfileView: View {
+    #if DEBUG
     @State private var orders: [Order] = sampleOrders
+    #else
+    @State private var orders: [Order] = []
+    #endif
     @State private var selectedOrder: Order?
 
     var body: some View {
