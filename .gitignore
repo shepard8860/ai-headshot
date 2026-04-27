@@ -4,7 +4,7 @@
 # Xcode / Swift
 ios/.build/
 ios/.swiftpm/
-ios/*.xcodeproj/
+# ios/*.xcodeproj/  # 保留 xcodeproj 以便直接打开
 ios/*.xcworkspace/
 ios/DerivedData/
 ios/.idea/
