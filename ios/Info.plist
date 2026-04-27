@@ -38,6 +38,11 @@
     <string>AI职业照需要访问您的相册，以便保存生成的证件照到本地。</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
     <key>NSCameraReactionEffectsEnabled</key>
     <true/>
 </dict>

@@ -14,7 +14,6 @@ actor APIService {
         self.session = URLSession(configuration: config)
         self.decoder = JSONDecoder()
         self.decoder.dateDecodingStrategy = .iso8601
-        self.decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
 
     // MARK: - Templates
