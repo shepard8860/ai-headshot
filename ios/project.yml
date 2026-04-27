@@ -24,7 +24,9 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         SWIFT_VERSION: "5.9"
         OTHER_SWIFT_FLAGS: "-enable-experimental-feature StrictConcurrency"
-        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGN_STYLE: "Automatic"
+        CODE_SIGN_IDENTITY: "Apple Development"
+        DEVELOPMENT_TEAM: "PL88RN3ADW"
     scheme:
       testTargets:
         - AIHeadshotTests
