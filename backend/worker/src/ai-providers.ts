@@ -74,6 +74,29 @@ async function isProviderHealthy(kv: KVNamespace, provider: AIProvider): Promise
   return true;
 }
 
+// ====== Mock AI 生成（本地开发用） ======
+function generateMockImages(prompt: string): string[] {
+  // 根据 prompt 生成不同颜色的占位图
+  const colors = ["3b82f6", "10b981", "8b5cf6", "f59e0b", "ef4444", "06b6d4"];
+  const hash = prompt.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const c1 = colors[hash % colors.length];
+  const c2 = colors[(hash + 3) % colors.length];
+  return [
+    `https://placehold.co/400x400/${c1}/ffffff?text=AI+Headshot+1`,
+    `https://placehold.co/400x400/${c2}/ffffff?text=AI+Headshot+2`,
+    `https://placehold.co/400x400/${c1}/ffffff?text=AI+Headshot+3`,
+  ];
+}
+
+async function mockGenerateHeadshot(_env: Env, _imageUrl: string, prompt: string): Promise<GenerateResult> {
+  log("info", "[MOCK] AI generation started", { promptLength: prompt.length });
+  // 模拟 3 秒生成延迟
+  await sleep(3000);
+  const imageUrls = generateMockImages(prompt);
+  log("info", "[MOCK] AI generation completed", { urlsCount: imageUrls.length });
+  return { success: true, imageUrls, provider: "sensetime" };
+}
+
 // ==================== 商汤 SenseNova ====================
 
 async function callSenseNova(
@@ -208,6 +231,11 @@ export async function generateHeadshot(
   imageUrl: string,
   prompt: string
 ): Promise<GenerateResult> {
+  // Mock 模式：直接返回占位图
+  if (env.SENSENOVA_API_KEY === "mock") {
+    return mockGenerateHeadshot(env, imageUrl, prompt);
+  }
+
   const primaryHealthy = await isProviderHealthy(env.HEADSHOT_KV, "sensetime");
   const fallbackHealthy = await isProviderHealthy(env.HEADSHOT_KV, "aliyun");
 
@@ -248,6 +276,9 @@ export async function healthCheck(env: Env): Promise<{
   sensetime: boolean;
   aliyun: boolean;
 }> {
+  if (env.SENSENOVA_API_KEY === "mock") {
+    return { sensetime: true, aliyun: true };
+  }
   const sensetime = await isProviderHealthy(env.HEADSHOT_KV, "sensetime");
   const aliyun = await isProviderHealthy(env.HEADSHOT_KV, "aliyun");
   return { sensetime, aliyun };

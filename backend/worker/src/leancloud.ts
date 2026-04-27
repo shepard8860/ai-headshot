@@ -118,13 +118,108 @@ class LeanCloudClient {
   }
 }
 
-let clientInstance: LeanCloudClient | null = null;
+// ====== Mock 内存存储（本地开发用） ======
+const MOCK_TEMPLATES: Template[] = [
+  {
+    template_id: "t1",
+    name: "商务蓝",
+    category: "business",
+    thumbnail_url: "https://placehold.co/200x200/3b82f6/ffffff?text=商务蓝",
+    style_prompt: "professional business headshot, blue background, suit, confident smile",
+    is_premium: false,
+    sort_order: 1,
+  },
+  {
+    template_id: "t2",
+    name: "简历灰",
+    category: "business",
+    thumbnail_url: "https://placehold.co/200x200/6b7280/ffffff?text=简历灰",
+    style_prompt: "clean resume headshot, gray background, professional attire",
+    is_premium: false,
+    sort_order: 2,
+  },
+  {
+    template_id: "t3",
+    name: "创意渐变",
+    category: "creative",
+    thumbnail_url: "https://placehold.co/200x200/8b5cf6/ffffff?text=创意渐变",
+    style_prompt: "creative headshot, gradient background, artistic lighting",
+    is_premium: true,
+    sort_order: 3,
+  },
+  {
+    template_id: "t4",
+    name: "证件白",
+    category: "id",
+    thumbnail_url: "https://placehold.co/200x200/f3f4f6/374151?text=证件白",
+    style_prompt: "ID photo, white background, neutral expression",
+    is_premium: false,
+    sort_order: 4,
+  },
+  {
+    template_id: "t5",
+    name: "LinkedIn 风",
+    category: "social",
+    thumbnail_url: "https://placehold.co/200x200/0ea5e9/ffffff?text=LinkedIn",
+    style_prompt: "LinkedIn style headshot, natural lighting, approachable smile",
+    is_premium: true,
+    sort_order: 5,
+  },
+  {
+    template_id: "t6",
+    name: "女性柔和",
+    category: "social",
+    thumbnail_url: "https://placehold.co/200x200/f472b6/ffffff?text=柔和",
+    style_prompt: "soft professional headshot, warm tones, elegant style",
+    is_premium: false,
+    sort_order: 6,
+  },
+];
 
-export function getLeanCloudClient(env: Env): LeanCloudClient {
+class MockLeanCloudClient {
+  private orders = new Map<string, Order>();
+
+  async createOrder(order: Order): Promise<Order> {
+    const obj = { ...order, objectId: `mock-${Date.now()}`, createdAt: new Date().toISOString() };
+    this.orders.set(order.order_id, obj);
+    log("info", "[MOCK] createOrder", { orderId: order.order_id });
+    return obj;
+  }
+
+  async getOrderByOrderId(orderId: string): Promise<Order | null> {
+    return this.orders.get(orderId) ?? null;
+  }
+
+  async updateOrder(orderId: string, updates: Partial<Order>): Promise<void> {
+    const order = this.orders.get(orderId);
+    if (!order) throw new Error(`Order not found: ${orderId}`);
+    this.orders.set(orderId, { ...order, ...updates, updatedAt: new Date().toISOString() });
+    log("info", "[MOCK] updateOrder", { orderId, status: updates.status });
+  }
+
+  async getTemplates(category?: string): Promise<Template[]> {
+    if (category) {
+      return MOCK_TEMPLATES.filter((t) => t.category === category);
+    }
+    return MOCK_TEMPLATES;
+  }
+
+  async getTemplateById(templateId: string): Promise<Template | null> {
+    return MOCK_TEMPLATES.find((t) => t.template_id === templateId) ?? null;
+  }
+}
+
+let clientInstance: LeanCloudClient | MockLeanCloudClient | null = null;
+
+export function getLeanCloudClient(env: Env): LeanCloudClient | MockLeanCloudClient {
   if (!clientInstance) {
-    clientInstance = new LeanCloudClient(env);
+    if (env.LEANCLOUD_APP_ID === "mock") {
+      clientInstance = new MockLeanCloudClient();
+    } else {
+      clientInstance = new LeanCloudClient(env);
+    }
   }
   return clientInstance;
 }
 
-export { LeanCloudClient };
+export { LeanCloudClient, MockLeanCloudClient };

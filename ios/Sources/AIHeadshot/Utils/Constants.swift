@@ -2,9 +2,15 @@ import Foundation
 
 enum Constants {
     static let baseURL: URL = {
+        #if DEBUG
+        guard let url = URL(string: "http://localhost:8787") else {
+            fatalError("Invalid base URL")
+        }
+        #else
         guard let url = URL(string: "https://api.ai-headshot.app") else {
             fatalError("Invalid base URL")
         }
+        #endif
         return url
     }()
     static let appGroupID = "group.com.ai-headshot.app"

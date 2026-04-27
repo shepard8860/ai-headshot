@@ -29,6 +29,12 @@ export async function generateSignedUrl(
   const endpoint = env.ALIYUN_OSS_ENDPOINT;
   const bucket = env.ALIYUN_OSS_BUCKET;
 
+  // Mock 模式：返回占位 URL
+  if (accessKeyId === "mock") {
+    log("info", "[MOCK] generateSignedUrl", { objectKey, method });
+    return `https://placehold.co/600x600/3b82f6/ffffff?text=Mock+OSS+${encodeURIComponent(objectKey)}`;
+  }
+
   if (!accessKeyId || !accessKeySecret) {
     throw new Error("Aliyun OSS credentials are not configured");
   }

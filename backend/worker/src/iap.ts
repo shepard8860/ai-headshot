@@ -15,6 +15,12 @@ export async function verifyAppleReceipt(
   receiptData: string,
   isSandbox = false
 ): Promise<VerifyPaymentResponse> {
+  // Mock 模式：直接返回成功
+  if (env.APPLE_SHARED_SECRET === "mock") {
+    log("info", "[MOCK] Apple receipt verified");
+    return { success: true };
+  }
+
   const url = isSandbox ? env.APPLE_SANDBOX_URL : env.APPLE_PRODUCTION_URL;
   const sharedSecret = env.APPLE_SHARED_SECRET;
 
