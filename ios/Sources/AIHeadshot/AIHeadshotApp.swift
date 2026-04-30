@@ -37,18 +37,72 @@ struct ContentView: View {
     }()
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            HomeView(userID: userID)
-                .tabItem {
-                    Label("首页", systemImage: "house.fill")
+        ZStack(alignment: .bottom) {
+            Group {
+                switch selectedTab {
+                case 0:
+                    HomeView(userID: userID)
+                case 1:
+                    ProfileView()
+                default:
+                    HomeView(userID: userID)
                 }
-                .tag(0)
+            }
 
-            ProfileView()
-                .tabItem {
-                    Label("我的", systemImage: "person.fill")
+            customTabBar
+        }
+    }
+
+    private var customTabBar: some View {
+        HStack(spacing: 0) {
+            TabBarButton(
+                title: "首页",
+                icon: "house.fill",
+                isSelected: selectedTab == 0
+            ) {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    selectedTab = 0
                 }
-                .tag(1)
+            }
+
+            TabBarButton(
+                title: "我的",
+                icon: "person.fill",
+                isSelected: selectedTab == 1
+            ) {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    selectedTab = 1
+                }
+            }
+        }
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.ultraThinMaterial)
+                .shadow(color: .black.opacity(0.08), radius: 12, x: 0, y: -4)
+        )
+        .padding(.horizontal, 40)
+        .padding(.bottom, 12)
+    }
+}
+
+struct TabBarButton: View {
+    let title: String
+    let icon: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 4) {
+                Image(systemName: icon)
+                    .font(.system(size: 20, weight: .semibold))
+                Text(title)
+                    .font(.caption)
+            }
+            .foregroundColor(isSelected ? Color(red: 0.35, green: 0.25, blue: 0.65) : .secondary)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 6)
         }
     }
 }

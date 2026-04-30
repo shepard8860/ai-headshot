@@ -3,7 +3,7 @@ import Foundation
 enum Constants {
     static let baseURL: URL = {
         #if DEBUG
-        guard let url = URL(string: "http://localhost:8787") else {
+        guard let url = URL(string: "http://127.0.0.1:8787") else {
             fatalError("Invalid base URL")
         }
         #else

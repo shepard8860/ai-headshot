@@ -25,7 +25,7 @@ final class ResultViewModel: ObservableObject {
             ]
             #else
             let result = try await APIService.shared.verifyPayment(orderID: orderID, receiptData: "")
-            thumbnails = result.imageURLs ?? []
+            thumbnails = result.hdUrls ?? []
             #endif
         } catch {
             errorMessage = "加载结果失败: \(error.localizedDescription)"
